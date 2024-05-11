@@ -8,3 +8,5 @@ app.get('/movies', (req, res, next) => {
 app.get('/', (req, res, next) => {
     res.send('This is a default text response.')
 });
+
+app.use(express.static('public'));
