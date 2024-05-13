@@ -68,9 +68,6 @@ app.get('/movies', (req, res, next) => {
     res.json(topMovies)
 });
 
-app.get('/', (req, res, next) => {
-    res.send('This is a default text response.')
-});
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
