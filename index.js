@@ -72,7 +72,7 @@ app.get('/movies', (req, res) => {
 // Returns data about a single movie by title
 app.get('/movies/:title', (req, res) => {
     res.json(movies.find((movie) => {
-        return movie.name === req.params.name
+        return movie.title === req.params.title
     }))
 })
 
