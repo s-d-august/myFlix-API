@@ -1,8 +1,12 @@
 const express = require('express'),
-    morgan = require('morgan');
+    morgan = require('morgan'),
+    bodyParser = require('body-parser'),
+    uuid = require(uuid);
+
 const app = express();
 
 let topMovies = [
+app.use(bodyParser.json());
     {
         title: 'The Thing',
         year: 1982,
