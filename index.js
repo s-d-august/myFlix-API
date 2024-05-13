@@ -77,7 +77,7 @@ app.get('/movies/:title', (req, res) => {
 })
 
 // Returns data about a genre by name
-app.get('/movies/:genres', (req, res) => {
+app.get('/movies/genres/:genre', (req, res) => {
     res.send('Successful GET request returning data on the genre.')
 })
 
