@@ -5,8 +5,9 @@ const express = require('express'),
 
 const app = express();
 
-let topMovies = [
 app.use(bodyParser.json());
+
+let movies = [
     {
         title: 'The Thing',
         year: 1982,
