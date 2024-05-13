@@ -69,12 +69,55 @@ app.get('/movies', (req, res) => {
     res.json(movies);
 });
 
+// Returns data about a single movie by title
+app.get('/movies/:title', (req, res) => {
+    res.json(movies.find((movie) => {
+        return movie.name === req.params.name
+    }))
+})
 
+// Returns data about a genre by name
+app.get('/movies/:genres', (req, res) => {
+    res.send('Successful GET request returning data on the genre.')
+})
+
+// Returns data about a director by name
+app.get('/movies/:director', (req, res) => {
+    res.send('Successful GET request returning data on the director.')
+})
+
+// Allows new users to register
+app.post('/users', (req, res) => {
+    res.send('Successful POST request registering new user.')
+})
+
+// Allows users to update their username
+app.put('/users/:username/:newUsername', (req, res) => {
+    res.send('Successful PUT request changing username.')
+})
+
+// Allows users to add a mobie to their list of favorites
+app.post('users/favorites/:username', (req, res) => {
+    res.send('Successful POST request adding movie to favorites.')
+})
+
+// Allows users to remove a movie from their list of favorites
+app.delete('users/favorites/:username', (req, res) => {
+    res.send('Successful DELETE request removing movie from favorites.')
+})
+
+// Allows existing users to deregister
+app.delete('users/:username', (req, res) => {
+    res.send('Successful DELETE request removing user.')
+})
+
+// Error handling
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!')
 });
 
+// Listener
 app.listen(8080, () => {
     console.log('Listening on port 8080.')
 })
