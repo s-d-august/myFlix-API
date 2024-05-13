@@ -82,7 +82,7 @@ app.get('/movies/genres/:genre', (req, res) => {
 })
 
 // Returns data about a director by name
-app.get('/movies/:director', (req, res) => {
+app.get('/movies/directors/:director', (req, res) => {
     res.send('Successful GET request returning data on the director.')
 })
 
