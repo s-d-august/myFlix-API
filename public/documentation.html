@@ -6,5 +6,122 @@
 </head>
 <body>
     This is a REST API for an application called myFlix. It interacts with a database that stores info about various movies.
+
+    <h3>Endpoints</h3>
+        <table>
+            <tr>
+                <th>Business Logic</th>
+                <th>URL</th>
+                <th>HTTP Method</th>
+                <th>Request Body Data Format</th>
+                <th>Response Body Data Format</th>
+            </tr>
+            <tr>
+                <td>Return a list of all movies.</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON Object holding data about all the movies.</td>
+            </tr>
+            <tr>
+                <td>Return data about a single movie by title.</td>
+                <td>/movies/:title</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data (description, genre, director, image URL, whether it's featured or not) about a single movie.<br><br>
+                    Example:
+<pre>{
+    Title: 'The Thing',
+    Description: 'A shapeshifting alien invades a remote Antarctic research station.',
+    Genre: 'Horror',
+    Director: 'John Carpenter',
+    Image URL: 'https://myflix.com/movies/images/the-thing'
+    Featured: true
+        }</pre></td>
+            </tr>
+            <tr>
+                <td>Return data about a genre by name.</td>
+                <td>/movies/:genre</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A plain text description of a single genre. <br><br>
+                    Example:<br><br>
+                    'Horror is a film genre that seeks to elicit fear or disgust in its audience for entertainment purposes. Horror films often explore dark subject matter and may deal with transgressive topics or themes. Broad elements include monsters, apocalyptic events, and religious or folk beliefs. (From Wikipedia.)'
+                </td>
+            </tr>
+            <tr>
+                <td>Return data about a director by name.</td>
+                <td>/movies/:directors</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data (bio, birth year, death year) about a single director.<br><br>
+                    Example:<br>
+<pre>{
+    Name: 'John Carpenter',
+    Bio: 'Lorum ipsum dolor',
+    Birth Year: 1948,
+    Death Year: null
+        }</pre></td>
+            </tr>
+            <tr>
+                <td>Allow new users to register.</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>A JSON object holding data about the new user.<br><br>
+                    Example:<br>
+<pre>{
+    Username: 'johndoe',
+    Name: 'John Doe',
+    Email: 'john.doe@test.com',
+    Password: 'password'
+        }</pre></td>
+                <td>A JSON object holding data about the new user, including an ID.<br><br>
+                    Example:
+<pre>{
+    Username: 'johndoe',
+    Name: 'John Doe',
+    Email: 'john.doe@test.com',
+    Password: 'password'
+    ID: 5
+        }</pre></td>
+            </tr>
+            <tr>
+                <td>Allow users to update their username.</td>
+                <td>/users/:username</td>
+                <td>PUT</td>
+                <td>None</td>
+                <td>A plain text message indicating that the username was changed.<br>
+                    Example:
+                    'Username changed from "johndor" to "johndoe".'
+                </td>
+            </tr>
+            <tr>
+                <td>Allow users to add a movie to their list of favorites.</td>
+                <td>/users/favorites/:username</td>
+                <td>POST</td>
+                <td>A plain text object of the movie's title.<br><br>Example: 'The Thing'</td>
+                <td>A plain text message indicating that the movie was added.<br><br>
+                    'Example: "The Thing" has been added to your favorites.'
+                </td>
+            </tr>
+            <tr>
+                <td>Allow users to remove a movie from their list of favorites.</td>
+                <td>/users/favorites/:username</td>
+                <td>DELETE</td>
+                <td> A plain text object of the movie's title.<br><br>Example: 'Bee Movie'</td>
+                <td>A plain text message indicating that the movie was removed. <br><br>
+                    'Example: "Bee Movie" has been removed from your favorites.'
+                </td>
+            </tr>
+            <tr>
+                <td>Allow existing users to deregister.</td>
+                <td>/users/:username</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>A plain text message indicating whether the deregistration was successful.<br><br>
+                    'Example: User "johndoe" has been deleted.'
+                </td>
+            </tr>
+        </table>
 </body>
 </html>
