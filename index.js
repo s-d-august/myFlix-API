@@ -64,8 +64,9 @@ app.use(express.static('public'));
 
 app.use(morgan('common'));
 
-app.get('/movies', (req, res, next) => {
-    res.json(topMovies)
+// Returns a list of ALL movies
+app.get('/movies', (req, res) => {
+    res.json(movies);
 });
 
 
