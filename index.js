@@ -96,8 +96,8 @@ app.put('/users/:username/:newUsername', (req, res) => {
     res.send('Successful PUT request changing username.')
 })
 
-// Allows users to add a mobie to their list of favorites
 app.post('users/favorites/:username', (req, res) => {
+// Allows users to add a movie to their list of favorites
     res.send('Successful POST request adding movie to favorites.')
 })
 
