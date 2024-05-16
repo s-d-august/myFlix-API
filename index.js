@@ -5,6 +5,10 @@ const express = require('express'),
 
 const app = express();
 
+app.use(express.static('public'));
+
+app.use(morgan('common'));
+
 app.use(bodyParser.json());
 
 let movies = [
@@ -59,10 +63,6 @@ let movies = [
         director: 'Phil Tippett'
     }
 ]
-
-app.use(express.static('public'));
-
-app.use(morgan('common'));
 
 // Returns a list of ALL movies
 app.get('/movies', (req, res) => {
