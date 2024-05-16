@@ -86,18 +86,20 @@
         }</pre></td>
             </tr>
             <tr>
-                <td>Allow users to update their username.</td>
-                <td>/users/:username/:newUsername</td>
+                <td>Allow users to update their info.</td>
+                <td>/users/:username</td>
                 <td>PUT</td>
-                <td>None</td>
-                <td>A plain text message indicating that the username was changed.<br>
+                <td>A JSON object holding the data to be changed.<br><br>
+                Example: {Username: 'johndoe'}
+                </td>
+                <td>A plain text message indicating that the info was changed.<br>
                     Example:
                     'Username changed from "johndor" to "johndoe".'
                 </td>
             </tr>
             <tr>
                 <td>Allow users to add a movie to their list of favorites.</td>
-                <td>/users/favorites/:username</td>
+                <td>/users/:username/movies/:movieID</td>
                 <td>POST</td>
                 <td>A plain text object of the movie's title.<br><br>Example: 'The Thing'</td>
                 <td>A plain text message indicating that the movie was added.<br><br>
@@ -106,7 +108,7 @@
             </tr>
             <tr>
                 <td>Allow users to remove a movie from their list of favorites.</td>
-                <td>/users/favorites/:username</td>
+                <td>/users/:username/movies/:movieID</td>
                 <td>DELETE</td>
                 <td> A plain text object of the movie's title.<br><br>Example: 'Bee Movie'</td>
                 <td>A plain text message indicating that the movie was removed. <br><br>

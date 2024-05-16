@@ -91,18 +91,18 @@ app.post('/users', (req, res) => {
     res.send('Successful POST request registering new user.')
 })
 
-// Allows users to update their username
-app.put('/users/:username/:newUsername', (req, res) => {
+// Allows users to update their info
+app.put('/users/:username', (req, res) => {
     res.send('Successful PUT request changing username.')
 })
 
 // Allows users to add a movie to their list of favorites
-app.post('/users/:username/favorites', (req, res) => {
+app.post('/users/:username/movies/:movieID', (req, res) => {
     res.send('Successful POST request adding movie to favorites.')
 })
 
 // Allows users to remove a movie from their list of favorites
-app.delete('/users/:username/favorites', (req, res) => {
+app.delete('/users/:username/movies//:movieID', (req, res) => {
     res.send('Successful DELETE request removing movie from favorites.')
 })
 
