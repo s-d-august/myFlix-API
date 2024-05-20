@@ -157,7 +157,7 @@ app.delete('/users/:username/movies/:movieID', async (req, res) => {
 
 // Allows existing users to deregister
 app.delete('/users/:username', async (req, res) => {
-    await Users.findOneAndRemove({ Username: req.params.username})
+    await Users.findOneAndDelete({ Username: req.params.username})
     .then((user) => {
         if (!user) {
             res.status(400).send(req.params.username + 'was not found.');
