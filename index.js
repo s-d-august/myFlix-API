@@ -81,6 +81,8 @@ app.post('/users', async (req, res) => {
                 Password: req.body.Password,
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
+            }).then((user) => {
+                return res.status(201).json(user)
             })
         }
     })
