@@ -35,15 +35,28 @@
                 <td>/movies/:title</td>
                 <td>GET</td>
                 <td>None</td>
-                <td>A JSON object holding data (description, genre, director, image URL, whether it's featured or not) about a single movie.<br><br>
+                <td>A JSON object holding data (ID, title, description, director, genre, image path, whether it's featured or not) about a single movie.<br><br>
                     Example:
 <pre>{
-    Title: 'The Thing',
-    Description: 'A shapeshifting alien invades a remote Antarctic research station.',
-    Genre: 'Horror',
-    Director: 'John Carpenter',
-    Image URL: 'https://myflix.com/movies/images/the-thing'
-    Featured: true
+    "_id":{"$oid":"6648fe6af50042a06dcdce04"},
+    "Title":"Goncharov",
+    "Description":"After the dissolution of the Soviet Union, Russian hitman Lo Straniero -- also known as Goncharov -- 
+        becomes entangled with the Naples mafia.",
+    "Director":
+        {
+        "Name":"Martin Scorsese",
+        "Bio":"Martin Scorsese is an American filmmaker. He emerged as one of the major figures of the New Hollywood era.",
+        "Birth":"1962",
+        "Death":null
+            },
+    "Genre":
+        {
+        "Name":"Thriller",
+        "Description":"Thriller film, also known as suspense film or suspense thriller, is a broad film genre that 
+            involves excitement and suspense in the audience."
+                },
+    "ImagePath":"goncharov.png",
+    "Featured":true
         }</pre></td>
             </tr>
             <tr>
@@ -51,9 +64,13 @@
                 <td>/movies/genres/:genre</td>
                 <td>GET</td>
                 <td>None</td>
-                <td>A plain text description of a single genre. <br><br>
+                <td>A JSON object holding data (name, description) about a single genre. <br><br>
                     Example:<br><br>
-                    'Horror is a film genre that seeks to elicit fear or disgust in its audience for entertainment purposes. Horror films often explore dark subject matter and may deal with transgressive topics or themes. Broad elements include monsters, apocalyptic events, and religious or folk beliefs. (From Wikipedia.)'
+<pre>{
+    "Name":"Thriller",
+    "Description":"Thriller film, also known as suspense film or suspense thriller, is a broad film genre that 
+        involves excitement and suspense in the audience."
+        }</pre>
                 </td>
             </tr>
             <tr>
@@ -64,10 +81,10 @@
                 <td>A JSON object holding data (bio, birth year, death year) about a single director.<br><br>
                     Example:<br>
 <pre>{
-    Name: 'John Carpenter',
-    Bio: 'Lorum ipsum dolor',
-    Birth Year: 1948,
-    Death Year: null
+    "Name":"Martin Scorsese",
+    "Bio":"Martin Scorsese is an American filmmaker. He emerged as one of the major figures of the New Hollywood era.",
+    "Birth":"1942",
+    "Death":null
         }</pre></td>
             </tr>
             <tr>
@@ -77,19 +94,22 @@
                 <td>A JSON object holding data about the new user.<br><br>
                     Example:<br>
 <pre>{
-    Username: 'johndoe',
-    Name: 'John Doe',
-    Email: 'john.doe@test.com',
-    Password: 'password'
+    "Name":"Lo Straniero",
+    "Username":"Goncharov",
+    "Email":"lo.straniero@gmail.com",
+    "Password":"JWHJ0715",
+    "Birthday":"1943-08-17"
         }</pre></td>
-                <td>A JSON object holding data about the new user, including an ID.<br><br>
+                <td>A JSON object holding data about the new user, including an ID and an empty Favorites array.<br><br>
                     Example:
 <pre>{
-    Username: 'johndoe',
-    Name: 'John Doe',
-    Email: 'john.doe@test.com',
-    Password: 'password'
-    ID: 5
+    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+    "Name":"Lo Straniero",
+    "Username":"Goncharov",
+    "Email":"lo.straniero@gmail.com",
+    "Password":"JWHJ0715",
+    "Birthday":"1943-08-17"
+    "Favorites":[]
         }</pre></td>
             </tr>
             <tr>
@@ -97,29 +117,55 @@
                 <td>/users/:username</td>
                 <td>PUT</td>
                 <td>A JSON object holding the data to be changed.<br><br>
-                Example: {Username: 'johndoe'}
+                Example: {"Email": "goncharov@gmail.com"}
                 </td>
-                <td>A plain text message indicating that the info was changed.<br><br>
+                <td>A JSON object holding the user's updated data.<br><br>
                     Example:
-                    'Username changed from "johndor" to "johndoe".'
+<pre>{
+    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+    "Name":"Lo Straniero",
+    "Username":"Goncharov",
+    <span class="highlight">"Email":"goncharov@gmail.com",</span>
+    "Password":"JWHJ0715",
+    "Birthday":"1943-08-17"
+    "Favorites":[]
+        }</pre>
                 </td>
             </tr>
             <tr>
                 <td>Allow users to add a movie to their list of favorites.</td>
                 <td>/users/:username/movies/:movieID</td>
                 <td>POST</td>
-                <td>A plain text object of the movie's title.<br><br>Example: 'The Thing'</td>
-                <td>A plain text message indicating that the movie was added.<br><br>
-                    'Example: "The Thing" has been added to your favorites.'
+                <td>None</td>
+                <td>A JSON object holding the user's updated data with the movie added.<br><br>
+                    Example:
+<pre>{
+    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+    "Name":"Lo Straniero",
+    "Username":"Goncharov",
+    "Email":"goncharov@gmail.com",
+    "Password":"JWHJ0715",
+    "Birthday":"1943-08-17"
+    <span class="highlight">"Favorites":[{"$oid":"6648fe6af50042a06dcdce04"}]</span>
+        }</pre>
                 </td>
             </tr>
             <tr>
                 <td>Allow users to remove a movie from their list of favorites.</td>
                 <td>/users/:username/movies/:movieID</td>
                 <td>DELETE</td>
-                <td> A plain text object of the movie's title.<br><br>Example: 'Bee Movie'</td>
-                <td>A plain text message indicating that the movie was removed. <br><br>
-                    'Example: "Bee Movie" has been removed from your favorites.'
+                <td>None</td>
+                <td>A JSON object holding the user's updated data with the movie removed.<br><br>
+                    Example:
+<pre>{
+    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+    "Name":"Lo Straniero",
+    "Username":"Goncharov",
+    "Email":"goncharov@gmail.com",
+    "Password":"JWHJ0715",
+    "Birthday":"1943-08-17"
+    <span class="highlight">"Favorites":[]</span>
+        }</pre>
                 </td>
             </tr>
             <tr>
