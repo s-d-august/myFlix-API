@@ -110,11 +110,11 @@ app.put('/users/:username', async (req, res) => {
         { Username: req.params.username },
         {
             $set: {
-                Name: req.body.name,
-                Username: req.body.username,
-                Password: req.body.password,
-                Email: req.body.email,
-                Birthday: req.body.birthday
+                Name: req.body.Name,
+                Username: req.body.Username,
+                Password: req.body.Password,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
             },
         },
         { new: true }
