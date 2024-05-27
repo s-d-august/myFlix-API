@@ -2,7 +2,8 @@ const express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    Models = require('./models');
+    Models = require('./models'),
+    cors = require('cors');
 
 mongoose.connect('mongodb://localhost:27017/myflix');
 
@@ -13,6 +14,7 @@ const Users = Models.User;
 app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(cors());
 
 let auth = require('./auth')(app);
 const passport = require('passport');
