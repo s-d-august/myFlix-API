@@ -128,7 +128,20 @@ app.post('/users',
   (required)
   Birthday: Date
 }*/
-app.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.put('/users/:username',
+[
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], async (req, res) => {
+
+  // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    } passport.authenticate('jwt', { session: false }), async (req, res) => {
     if(req.user.Username !== req.params.username){
         return res.status(400).send('Permission denied')
     }
@@ -152,7 +165,7 @@ app.put('/users/:username', passport.authenticate('jwt', { session: false }), as
             console.error(err);
             res.status(500).send('Error: ' + err)
         });
-})
+}})
 
 // Allows users to add a movie to their list of favorites
 app.post('/users/:username/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
