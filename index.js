@@ -76,7 +76,21 @@ app.get('/movies/directors/:director', passport.authenticate('jwt', { session: f
   Email: String,
   Birthday: Date
 }*/
-app.post('/users', async (req, res) => {
+app.post('/users', 
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], async (req, res) => {
+
+  // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    async (req, res) => {
     let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
         .then((user) => {
@@ -99,7 +113,7 @@ app.post('/users', async (req, res) => {
             console.error(error);
             res.status(500).send('Error: ' + error)
         })
-})
+}})
 
 // Allows users to update their info
 /* We’ll expect JSON in this format
