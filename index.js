@@ -3,7 +3,8 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Models = require('./models'),
-    cors = require('cors');
+    cors = require('cors'),
+    bcrypt = require('bcrypt');
 
 mongoose.connect('mongodb://localhost:27017/myflix');
 
