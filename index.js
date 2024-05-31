@@ -6,7 +6,7 @@ const express = require('express'),
     cors = require('cors'),
     bcrypt = require('bcrypt');
 
-mongoose.connect('mongodb://localhost:27017/myflix');
+mongoose.connect(process.env.CONNECTION_URI);
 
 const app = express();
 const Movies = Models.Movie;
