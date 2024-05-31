@@ -6,8 +6,7 @@ const express = require('express'),
     cors = require('cors'),
     bcrypt = require('bcrypt');
 
-// mongoose.connect('mongodb://localhost:27017/myflix');
-mongoose.connect('mongodb+srv://s-d-august:pnKsVJmimHMMcGYd@sdacluster.wawcvgf.mongodb.net/myflix?retryWrites=true&w=majority&appName=SDACluster')
+mongoose.connect('mongodb://localhost:27017/myflix');
 
 const app = express();
 const Movies = Models.Movie;
