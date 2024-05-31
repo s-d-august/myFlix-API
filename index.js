@@ -3,8 +3,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     Models = require('./models'),
-    cors = require('cors'),
-    bcrypt = require('bcrypt');
+    cors = require('cors');
 
 mongoose.connect(process.env.CONNECTION_URI);
 
