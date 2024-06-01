@@ -2,7 +2,7 @@ const express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    Models = require('./models'),
+    Models = require('./models.js'),
     cors = require('cors');
 
 mongoose.connect(process.env.CONNECTION_URI);
@@ -17,9 +17,9 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(cors());
 
-let auth = require('./auth')(app);
+let auth = require('./auth.js')(app);
 const passport = require('passport');
-require('./passport');
+require('./passport.js');
 
 // Returns a list of ALL movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
