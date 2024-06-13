@@ -75,28 +75,32 @@ app.get('/movies/directors/:director', passport.authenticate('jwt', { session: f
   Birthday: Date
 }*/
 app.post('/users', async (req, res) => {
-  await Users.findOne({ Username: req.body.Username })
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
+        //If the user is found, send a response that it already exists
         return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
           .create({
-            Name: req.body.Name,
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
-          }).then((user) => {
-            return res.status(201).json(user)
           })
+          .then((user) => { res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          });
       }
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send('Error: ' + error)
-    })
-})
+      res.status(500).send('Error: ' + error);
+    });
+});
 
 // Allows users to update their info
 /* We’ll expect JSON in this format
