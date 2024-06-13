@@ -5,7 +5,7 @@ const express = require('express'),
   Models = require('./models');
 
 // mongoose.connect('mongodb://localhost:27017/myflix');
-mongoose.connect('process.env.CONNECTION_URI');
+mongoose.connect(process.env.CONNECTION_URI)
 
 const app = express();
 const Movies = Models.Movie;
