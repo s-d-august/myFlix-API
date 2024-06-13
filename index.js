@@ -4,6 +4,8 @@ const express = require('express'),
   mongoose = require('mongoose'),
   Models = require('./models');
 
+require('dotenv').config()
+
 // mongoose.connect('mongodb://localhost:27017/myflix');
 mongoose.connect(process.env.CONNECTION_URI)
 
