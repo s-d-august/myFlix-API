@@ -4,7 +4,8 @@ const express = require('express'),
   mongoose = require('mongoose'),
   Models = require('./models');
 
-mongoose.connect('mongodb://localhost:27017/myflix');
+// mongoose.connect('mongodb://localhost:27017/myflix');
+mongoose.connect('process.env.CONNECTION_URI');
 
 const app = express();
 const Movies = Models.Movie;
@@ -214,6 +215,8 @@ app.use((err, req, res, next) => {
 });
 
 // Listener
-app.listen(8080, () => {
-  console.log('Listening on port 8080.')
-})
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
+});
+
