@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>myFlix API Documentation</title>
-    <style>
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px;
-    }
-    tr:hover {background-color: lightblue;}
-    .highlight {background-color: yellow;}
-    </style>
-</head>
-<body>
-    This is a REST API for an application called myFlix. It interacts with a database that stores info about various movies.
 
-    <h3>Endpoints</h3>
-        <table>
-            <tr>
-                <th>Business Logic</th>
-                <th>URL</th>
-                <th>HTTP Method</th>
-                <th>Request Body Data Format</th>
-                <th>Response Body Data Format</th>
-            </tr>
-            <tr>
-                <td>Return a list of all movies.</td>
-                <td>/movies</td>
-                <td>GET</td>
-                <td>None</td>
-                <td>A JSON object holding data about all the movies.</td>
-            </tr>
-            <tr>
-                <td>Return data about a single movie by title.</td>
-                <td>/movies/:title</td>
-                <td>GET</td>
-                <td>None</td>
-                <td>A JSON object holding data (ID, title, description, director, genre, image path, whether it's featured or not) about a single movie.<br><br>
-                    Example:
-<pre>{
+<head>
+  <title>myFlix API Documentation</title>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+    }
+
+    tr:hover {
+      background-color: lightblue;
+    }
+
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  This is a REST API for an application called myFlix. It interacts with a database that stores info about various
+  movies.
+
+  <h3>Endpoints</h3>
+  <table>
+    <tr>
+      <th>Business Logic</th>
+      <th>URL</th>
+      <th>HTTP Method</th>
+      <th>Request Body Data Format</th>
+      <th>Response Body Data Format</th>
+    </tr>
+    <tr>
+      <td>Return a list of all movies.</td>
+      <td>/movies</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>A JSON object holding data about all the movies.</td>
+    </tr>
+    <tr>
+      <td>Return data about a single movie by title.</td>
+      <td>/movies/:title</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>A JSON object holding data (ID, title, description, director, genre, image path, whether it's featured or not)
+        about a single movie.<br><br>
+        Example:
+        <pre>{
     "_id":{"$oid":"6648fe6af50042a06dcdce04"},
     "Title":"Goncharov",
     "Description":"After the dissolution of the Soviet Union, Russian hitman Lo Straniero -- also known as Goncharov -- 
@@ -58,126 +70,138 @@
                 },
     "ImagePath":"goncharov.png",
     "Featured":true
-        }</pre></td>
-            </tr>
-            <tr>
-                <td>Return data about a genre by name.</td>
-                <td>/movies/genres/:genre</td>
-                <td>GET</td>
-                <td>None</td>
-                <td>A JSON object holding data (name, description) about a single genre. <br><br>
-                    Example:<br><br>
-<pre>{
+        }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Return data about a genre by name.</td>
+      <td>/movies/genres/:genre</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>A JSON object holding data (name, description) about a single genre. <br><br>
+        Example:<br><br>
+        <pre>{
     "Name":"Thriller",
     "Description":"Thriller film, also known as suspense film or suspense thriller, is a broad film genre that 
         involves excitement and suspense in the audience."
         }</pre>
-                </td>
-            </tr>
-            <tr>
-                <td>Return data about a director by name.</td>
-                <td>/movies/directors/:director</td>
-                <td>GET</td>
-                <td>None</td>
-                <td>A JSON object holding data (bio, birth year, death year) about a single director.<br><br>
-                    Example:<br>
-<pre>{
-    "Name":"Martin Scorsese",
-    "Bio":"Martin Scorsese is an American filmmaker. He emerged as one of the major figures of the New Hollywood era.",
-    "Birth":"1942",
-    "Death":null
-        }</pre></td>
-            </tr>
-            <tr>
-                <td>Allow new users to register.</td>
-                <td>/users</td>
-                <td>POST</td>
-                <td>A JSON object holding data about the new user.<br><br>
-                    Example:<br>
-<pre>{
-    "Name":"Lo Straniero",
-    "Username":"Goncharov",
-    "Email":"lo.straniero@gmail.com",
-    "Password":"JWHJ0715",
-    "Birthday":"1943-08-17"
-        }</pre></td>
-                <td>A JSON object holding data about the new user, including an ID and an empty Favorites array.<br><br>
-                    Example:
-<pre>{
-    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
-    "Name":"Lo Straniero",
-    "Username":"Goncharov",
-    "Email":"lo.straniero@gmail.com",
-    "Password":"JWHJ0715",
-    "Birthday":"1943-08-17"
-    "Favorites":[]
-        }</pre></td>
-            </tr>
-            <tr>
-                <td>Allow users to update their info.</td>
-                <td>/users/:username</td>
-                <td>PUT</td>
-                <td>A JSON object holding the data to be changed.<br><br>
-                Example: {"Email": "goncharov@gmail.com"}
-                </td>
-                <td>A JSON object holding the user's updated data.<br><br>
-                    Example:
-<pre>{
-    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
-    "Name":"Lo Straniero",
-    "Username":"Goncharov",
-    <span class="highlight">"Email":"goncharov@gmail.com",</span>
-    "Password":"JWHJ0715",
-    "Birthday":"1943-08-17"
-    "Favorites":[]
+      </td>
+    </tr>
+    <tr>
+      <td>Return data about a director by name.</td>
+      <td>/movies/directors/:director</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>A JSON object holding data (bio, birth year, death year) about a single director.<br><br>
+        Example:<br>
+        <pre>{
+"Name":"Martin Scorsese",
+"Bio":"Martin Scorsese is an American filmmaker. He emerged as one of the major figures of the New Hollywood era.",
+"Birth":"1942",
+"Death":null
         }</pre>
-                </td>
-            </tr>
-            <tr>
-                <td>Allow users to add a movie to their list of favorites.</td>
-                <td>/users/:username/movies/:movieID</td>
-                <td>POST</td>
-                <td>None</td>
-                <td>A JSON object holding the user's updated data with the movie added.<br><br>
-                    Example:
-<pre>{
-    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
-    "Name":"Lo Straniero",
-    "Username":"Goncharov",
-    "Email":"goncharov@gmail.com",
-    "Password":"JWHJ0715",
-    "Birthday":"1943-08-17"
-    <span class="highlight">"Favorites":[{"$oid":"6648fe6af50042a06dcdce04"}]</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Returns a list of all users.</td>
+      <td>/users</td>
+      <td>GET</td>
+      <td>None</td>
+      <td>A JSON object containing data about all users.</td>
+    </tr>
+    <tr>
+      <td>Allow new users to register.</td>
+      <td>/users</td>
+      <td>POST</td>
+      <td>A JSON object holding data about the new user. Username, email, and password are required.<br><br>
+        Example:<br>
+        <pre>{
+"Name":"Lo Straniero",
+"Username":"Goncharov",
+"Email":"lo.straniero@gmail.com",
+"Password":"JWHJ0715",
+"Birthday":"1943-08-17"
         }</pre>
-                </td>
-            </tr>
-            <tr>
-                <td>Allow users to remove a movie from their list of favorites.</td>
-                <td>/users/:username/movies/:movieID</td>
-                <td>DELETE</td>
-                <td>None</td>
-                <td>A JSON object holding the user's updated data with the movie removed.<br><br>
-                    Example:
-<pre>{
-    "_id":{"$oid":"6648fa4bf50042a06dcdce02"},
-    "Name":"Lo Straniero",
-    "Username":"Goncharov",
-    "Email":"goncharov@gmail.com",
-    "Password":"JWHJ0715",
-    "Birthday":"1943-08-17"
-    <span class="highlight">"Favorites":[]</span>
+      </td>
+      <td>A JSON object holding data about the new user, including an ID and an empty Favorites array.<br><br>
+        Example:
+        <pre>{
+"_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+"Name":"Lo Straniero",
+"Username":"Goncharov",
+"Email":"lo.straniero@gmail.com",
+"Password":"JWHJ0715",
+"Birthday":"1943-08-17"
+"Favorites":[]
         }</pre>
-                </td>
-            </tr>
-            <tr>
-                <td>Allow existing users to deregister.</td>
-                <td>/users/:username</td>
-                <td>DELETE</td>
-                <td>None</td>
-                <td>A plain text message indicating whether the deregistration was successful.<br><br>
-                    'Example: User "johndoe" has been deleted.'
-                </td>
-            </tr>
-        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>Allow users to update their info.</td>
+      <td>/users/:username</td>
+      <td>PUT</td>
+      <td>A JSON object holding the data to be changed.<br><br>
+        Example: {"Email": "goncharov@gmail.com"}
+      </td>
+      <td>A JSON object holding the user's updated data.<br><br>
+        Example:
+        <pre>{
+"_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+"Name":"Lo Straniero",
+"Username":"Goncharov",
+<span class="highlight">"Email":"goncharov@gmail.com",</span>
+"Password":"JWHJ0715",
+"Birthday":"1943-08-17"
+"Favorites":[]
+        }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Allow users to add a movie to their list of favorites.</td>
+      <td>/users/:username/movies/:movieID</td>
+      <td>POST</td>
+      <td>None</td>
+      <td>A JSON object holding the user's updated data with the movie added.<br><br>
+        Example:
+        <pre>{
+"_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+"Name":"Lo Straniero",
+"Username":"Goncharov",
+"Email":"goncharov@gmail.com",
+"Password":"JWHJ0715",
+"Birthday":"1943-08-17"
+<span class="highlight">"Favorites":[{"$oid":"6648fe6af50042a06dcdce04"}]</span>
+        }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Allow users to remove a movie from their list of favorites.</td>
+      <td>/users/:username/movies/:movieID</td>
+      <td>DELETE</td>
+      <td>None</td>
+      <td>A JSON object holding the user's updated data with the movie removed.<br><br>
+        Example:
+        <pre>{
+"_id":{"$oid":"6648fa4bf50042a06dcdce02"},
+"Name":"Lo Straniero",
+"Username":"Goncharov",
+"Email":"goncharov@gmail.com",
+"Password":"JWHJ0715",
+"Birthday":"1943-08-17"
+<span class="highlight">"Favorites":[]</span>
+        }</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Allow existing users to deregister.</td>
+      <td>/users/:username</td>
+      <td>DELETE</td>
+      <td>None</td>
+      <td>A plain text message indicating whether the deregistration was successful.<br><br>
+        'Example: User "johndoe" has been deleted.'
+      </td>
+    </tr>
+  </table>
 </body>
+
 </html>
