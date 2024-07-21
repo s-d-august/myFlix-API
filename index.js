@@ -13,16 +13,16 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 
+app.use(express.static('public'));
+app.use(morgan('common'));
+app.use(bodyParser.json());
+
 const cors = require('cors');
 app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 const { check, validationResult } = require('express-validator');
-
-app.use(express.static('public'));
-app.use(morgan('common'));
-app.use(bodyParser.json());
 
 // Returns a list of ALL movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
