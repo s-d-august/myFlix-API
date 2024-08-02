@@ -150,12 +150,12 @@ app.post('/users',
   (required)
   Birthday: Date
 }*/
-app.put('/users/:_id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params._id) {
+app.put('/users/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user._id !== req.params.userId) {
     return res.status(400).send('Permission denied')
   }
   await Users.findOneAndUpdate(
-    { _id: req.params._id },
+    { _id: req.params.userId },
     {
       $set: {
         Name: req.body.Name,
@@ -177,8 +177,8 @@ app.put('/users/:_id', passport.authenticate('jwt', { session: false }), async (
 })
 
 // Allows users to add a movie to their list of favorites
-app.post('/users/:_id/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate({ _id: req.params._id }, {
+app.post('/users/:userId/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Users.findOneAndUpdate({ _id: req.params.userId }, {
     $push: { Favorites: req.params.movieID }
   },
     { new: true })
@@ -192,8 +192,8 @@ app.post('/users/:_id/movies/:movieID', passport.authenticate('jwt', { session: 
 })
 
 // Allows users to remove a movie from their list of favorites
-app.delete('/users/:_id/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate({ _id: req.params._id }, {
+app.delete('/users/:userId/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Users.findOneAndUpdate({ _id: req.params.userId }, {
     $pull: { Favorites: req.params.movieID }
   },
     { new: true })
@@ -207,8 +207,8 @@ app.delete('/users/:_id/movies/:movieID', passport.authenticate('jwt', { session
 })
 
 // Allows existing users to deregister
-app.delete('/users/:_id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndDelete({ _id: req.params._id })
+app.delete('/users/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Users.findOneAndDelete({ _id: req.params.userId })
     .then((user) => {
       if (!user) {
         res.status(400).send('User was not found.');
