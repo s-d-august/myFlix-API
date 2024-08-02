@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 const cors = require('cors');
 app.use(cors());
-let auth = require('./auth')(app);
+let auth = require('./auth').default(app);
 const passport = require('passport');
 require('./passport');
 const { check, validationResult } = require('express-validator');
