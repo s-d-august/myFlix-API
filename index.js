@@ -91,11 +91,6 @@ app.get('/users', passport.authenticate('jwt', { session: false }), async (req, 
   Birthday: Date
 }*/
 app.post('/users',
-  // Validation logic here for request
-  //you can either use a chain of methods like .not().isEmpty()
-  //which means "opposite of isEmpty" in plain english "is not empty"
-  //or use .isLength({min: 5}) which means
-  //minimum value of 5 characters are only allowed
   [
     check('Username', 'Username is required').isLength({ min: 5 }),
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -136,6 +131,17 @@ app.post('/users',
         res.status(500).send('Error: ' + error);
       });
   });
+
+// Returns data about a single user by username
+app.get('/users/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Users.findOne({ _id: req.params.userId })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(500).send('Error: ' + err)
+    })
+})
 
 // Allows users to update their info
 /* We’ll expect JSON in this format
