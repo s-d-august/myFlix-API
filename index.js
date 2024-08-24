@@ -184,17 +184,23 @@ app.put('/update/:userId', passport.authenticate('jwt', { session: false }), asy
 
 // Allows users to add a movie to their list of favorites
 app.post('/users/:userId/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate({ _id: req.params.userId }, {
-    $push: { Favorites: req.params.movieID }
-  },
-    { new: true })
-    .then((updatedUser) => {
-      res.json(updatedUser);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err)
-    })
+  var user = Users.findOne({ _id: req.params.userId })
+  if (user.Favorites.contains(req.params.movieID)) {
+    res.status().send('This movie is already in your favorites!')
+  }
+  else {
+    await Users.findOneAndUpdate({ _id: req.params.userId }, {
+      $push: { Favorites: req.params.movieID }
+    },
+      { new: true })
+      .then((updatedUser) => {
+        res.json(updatedUser);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err)
+      })
+  }
 })
 
 // Allows users to remove a movie from their list of favorites
