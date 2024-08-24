@@ -8,7 +8,7 @@ require('dotenv').config()
 
 // mongoose.connect('mongodb://localhost:27017/myflix');
 mongoose.connect(process.env.CONNECTION_URI)
-
+const cors = require('cors');
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -17,7 +17,7 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-const cors = require('cors');
+
 app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
