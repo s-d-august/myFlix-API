@@ -157,9 +157,9 @@ app.get('/users/:userId', passport.authenticate('jwt', { session: false }), asyn
   Birthday: Date
 }*/
 app.put('/update/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.userId) {
-    return res.status(400).send('Permission denied')
-  }
+  /*  if (req.user._id !== req.params.userId) {
+      return res.status(400).send('Permission denied')
+    } */
   await Users.findOneAndUpdate(
     { _id: req.params.userId },
     {
