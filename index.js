@@ -1,14 +1,14 @@
 const cors = require('cors');
-express = require('express'),
-  morgan = require('morgan'),
-  bodyParser = require('body-parser'),
-  mongoose = require('mongoose'),
-  Models = require('./models');
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Models = require('./models');
 
-require('dotenv').config()
+require('dotenv').config();
 
 // mongoose.connect('mongodb://localhost:27017/myflix');
-mongoose.connect(process.env.CONNECTION_URI)
+mongoose.connect(process.env.CONNECTION_URI);
 
 const app = express();
 const Movies = Models.Movie;
@@ -18,14 +18,12 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-
-
-
 let allowedOrigins = ['http://localhost:1234'];
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) { // If a specific origin isn’t found on the list of allowed origins
+    if (allowedOrigins.indexOf(origin) === -1) {
       let message = "The CORS policy for this application doesn't allow access from origin " + origin;
       return callback(new Error(message), false);
     }
@@ -34,6 +32,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
+// Handle preflight requests
 app.options('*', cors());
 
 let auth = require('./auth')(app);
