@@ -22,6 +22,7 @@ let allowedOrigins = ['http://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
+    console.log(`CORS request from origin: ${origin}`); // Logging origin
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       let message = "The CORS policy for this application doesn't allow access from origin " + origin;
