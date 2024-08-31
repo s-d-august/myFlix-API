@@ -1,4 +1,5 @@
-const express = require('express'),
+const cors = require('cors');
+express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
@@ -8,8 +9,7 @@ require('dotenv').config()
 
 // mongoose.connect('mongodb://localhost:27017/myflix');
 mongoose.connect(process.env.CONNECTION_URI)
-const cors = require('cors');
-let allowedOrigins = ['http://localhost:1234'];
+
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 
 
 
+let allowedOrigins = ['http://localhost:1234'];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
@@ -29,8 +30,12 @@ app.use(cors({
       return callback(new Error(message), false);
     }
     return callback(null, true);
-  }
+  },
+  optionsSuccessStatus: 200
 }));
+
+app.options('*', cors());
+
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
