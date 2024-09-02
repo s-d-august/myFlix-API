@@ -202,7 +202,7 @@ app.put('/update/:userId', passport.authenticate('jwt', { session: false }), asy
 // Allows users to add a movie to their list of favorites
 app.post('/users/:userId/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
   var user = Users.findOne({ _id: req.params.userId })
-  if (user.Favorites.contains(req.params.movieID)) {
+  if (user.Favorites.includes(req.params.movieID)) {
     res.status().send('This movie is already in your favorites!')
   }
   else {
