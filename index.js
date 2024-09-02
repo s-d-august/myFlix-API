@@ -149,7 +149,7 @@ app.post('/users',
       });
   });
 
-// Returns data about a single user by username
+// Returns data about a single user by ID
 app.get('/users/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Users.findOne({ _id: req.params.userId })
     .then((user) => {
@@ -201,7 +201,7 @@ app.put('/update/:userId', passport.authenticate('jwt', { session: false }), asy
 
 // Allows users to add a movie to their list of favorites
 app.post('/users/:userId/movies/:movieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  var user = Users.findOne({ _id: req.params.userId })
+  var user = await Users.findOne({ _id: req.params.userId })
   console.log(user)
   console.log(user.Favorites)
   if (user.Favorites.includes(req.params.movieID)) {
