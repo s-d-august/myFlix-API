@@ -18,7 +18,7 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-let allowedOrigins = ['http://localhost:1234'];
+let allowedOrigins = ['https://myflix-sda.netlify.app'];
 
 app.use(cors({
   origin: (origin, callback) => {
